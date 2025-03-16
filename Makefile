@@ -20,19 +20,19 @@ COMMON_SRC = $(SRC_DIR)/common_utils.c $(SRC_DIR)/convert_utils.c $(SRC_DIR)/io_
 TOOL_SRC = $(SRC_DIR)/main.c
 
 COMMON_OBJ = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(COMMON_SRC))
-TOOL_OBJ = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(TOOL_SRC))
+OUT_OBJ = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(TOOL_SRC))
 
 TEST_SRCS = $(wildcard $(TEST_DIR)/*.c)
 TEST_OBJS = $(patsubst $(TEST_DIR)/%.c, $(BUILD_DIR)/%.o, $(TEST_SRCS))
 TEST_TARGET = $(BUILD_DIR)/test_runner
 
-TOOL_BIN = $(BIN_DIR)/senc
+OUT_BIN = $(BIN_DIR)/senc
 
 $(shell mkdir -p $(BUILD_DIR) $(BIN_DIR))
 
-all: $(TOOL_BIN)
+all: $(OUT_BIN)
 
-$(TOOL_BIN): $(TOOL_OBJ) $(COMMON_OBJ)
+$(OUT_BIN): $(OUT_OBJ) $(COMMON_OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(TEST_TARGET): $(TEST_OBJS) $(COMMON_OBJ)
